@@ -1,6 +1,6 @@
 <%_ if (!rootOptions.router) { _%>
   <%_ if (!usingNVW) { _%>
-<template>  
+<template>
   <div class="w-page">
     <div class="w-container">
       <img src="~/assets/logo.png" alt="logo" height="20%" width="20%">
@@ -15,7 +15,7 @@
     <ActionBar :title="navbarTitle"/>
     <GridLayout rows="auto, auto">
         <!-- copy-webpack-plugin copies asset from src/assets to project output/build directory /assets -->
-        <Image src="~/assets/logo.png" row="0" class="m-20"/> 
+        <Image src="~/assets/logo.png" row="0" class="m-20"/>
         <HelloWorld :msg="msg" row="1" />
     </GridLayout>
     </Page>
@@ -70,7 +70,7 @@
     },
   };
 
-</script>    
+</script>
     <%_ } else { _%>
     <%# Using NVW %>
 <script>
@@ -134,7 +134,7 @@
   };
 
 </script>
-    <%_ } _%>  
+    <%_ } _%>
   <%_ } _%>
 <%_ } else { _%>
   <%_ if (!usingTS) { _%>
@@ -154,7 +154,7 @@
     <%_ } else { _%>
 <script>
   import { Page, ActionBar, GridLayout, Button } from 'nativescript-vue-web';
-  
+
   export default {
 
     components: {
@@ -171,7 +171,7 @@
     },
     methods: {
       goToHomePage() {
-        this.$router.push('home');
+        this.$router.push('/');
       },
       goToAboutPage() {
         this.$router.push('about');
@@ -199,7 +199,7 @@
     <%# Is using NVW %>
 <script lang="ts">
   import { Page, ActionBar, GridLayout, Button } from 'nativescript-vue-web';
-  
+
   export default {
 
     components: {
@@ -279,24 +279,24 @@
     position: relative;
     overflow: hidden;
     display: flex;
-    flex-direction: column;      
-    justify-content: top;  
-    align-items: center;   
-  
+    flex-direction: column;
+    justify-content: top;
+    align-items: center;
+
 
     .w-button {
       width: 50%;
       height: 2em;
       margin: .25em;
-      display: flex;  
-      justify-content: center;  
+      display: flex;
+      justify-content: center;
       align-items: center;
       background-color: #d7d7d7;
       border-width: 0px;
       font-weight: 600;
       border-radius: 3px;
     }
-    
+
   }
   <%_ } else { _%>
   <%# Is using NVW %>
@@ -354,7 +354,7 @@
       border-radius: 3px
   <%_ } else { _%>
   <%# Is using NVW %>
-  ActionBar 
+  ActionBar
     color #42b983
   <%_ } _%>
 </style>
