@@ -17,9 +17,9 @@ const {
 } = require("nativescript-worker-loader/NativeScriptWorkerPlugin");
 
 const resolveExtensionsOptions = {
-  web: ['.ts', '.tsx', '.js', '.jsx', '.vue', '.json', '.scss'],
-  android: ['.native.ts', '.android.ts', '.ts', '.native.js', '.android.js', '.js', '.native.vue', '.android.vue', '.vue', '.json', 'native.scss'],
-  ios: ['.native.ts', '.ios.ts', '.ts', '.native.js', '.ios.js', '.js', '.native.vue', '.ios.vue', '.vue', '.json', 'native.scss'],
+  web: ['.ts', '.tsx', '.js', '.jsx', '.vue', '.json', '.scss', '.css'],
+  android: ['.native.ts', '.android.ts', '.ts', '.native.js', '.android.js', '.js', '.native.vue', '.android.vue', '.vue', '.json', '.native.scss', '.android.scss', '.scss', '.native.css', '.android.css', '.css'],
+  ios: ['.native.ts', '.ios.ts', '.ts', '.native.js', '.ios.js', '.js', '.native.vue', '.ios.vue', '.vue', '.json', '.native.scss', '.ios.scss', '.scss', '.native.css', '.ios.css', '.css'],
 }
 
 
@@ -78,7 +78,7 @@ const nativeConfig = (api, projectOptions, env, platform, jsOrTs) => {
 
   const appFullPath = appPath
   const appResourcesFullPath = appResourcesPath;
-  
+
   const entryModule = nsWebpack.getEntryModule(appFullPath);
   const entryPath = `.${path.sep}${entryModule}${jsOrTs}`;
 
@@ -124,11 +124,11 @@ const nativeConfig = (api, projectOptions, env, platform, jsOrTs) => {
 
 
     // next several use the resolveExtension function to easily
-    // and in resolve.extensions from an object array const 
-    // or directly from a string  
+    // and in resolve.extensions from an object array const
+    // or directly from a string
     config.resolve.extensions.clear();
-    resolveExtensions(config, '.scss');
-    resolveExtensions(config, '.css');
+    //resolveExtensions(config, '.scss');
+    //resolveExtensions(config, '.css');
 
     if (platform === 'android') {
       for (let ext of resolveExtensionsOptions.android) {
@@ -403,9 +403,9 @@ const nativeConfig = (api, projectOptions, env, platform, jsOrTs) => {
       .end();
 
     // Copy assets to out dir. Add your own globs as needed.
-    // if the project is native-only then we want to copy files 
+    // if the project is native-only then we want to copy files
     // from the app directory and not the src directory as at
-    // that point, the src directory should have been removed 
+    // that point, the src directory should have been removed
     // when the plugin was originally invoked.
     config.plugin('copy-assets')
       .use(CopyWebpackPlugin, [
@@ -575,9 +575,9 @@ const webConfig = (api, projectOptions, env, appMode, jsOrTs) => {
 
 
     // Copy assets to out dir. Add your own globs as needed.
-    // if the project is native-only then we want to copy files 
+    // if the project is native-only then we want to copy files
     // from the app directory and not the src directory as at
-    // that point, the src directory should have been removed 
+    // that point, the src directory should have been removed
     // when the plugin was originally invoked.
     config.plugin('copy-assets')
       .use(CopyWebpackPlugin, [
