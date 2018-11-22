@@ -31,7 +31,7 @@ Example: com.company.app`
     default: true
   },
   {
-    name: 'isNativeOnly',
+    name: 'isNativeOrDual',
     type: 'list',
     message: 'Dual Native AND Web development experience or a Native only? (Default: Dual)',
     choices: [{
@@ -61,8 +61,8 @@ Example: com.company.app`
     ],
     default: false,
     when: (answers) => {
-      // prompt will only show up if isNativeOnly === 'dual'
-      return answers.isNativeOnly === 'dual';
+      // prompt will only show up if isNativeOrDual === 'dual'
+      return answers.isNativeOrDual === 'dual';
     }
   },
   {
