@@ -21,7 +21,7 @@
     <Page>
         <!-- <ActionBar :title="navbarTitle"/> -->
         <GridLayout>
-            <Label text="This is an about page" textWrap="true" horizontalAlignment="center" verticalAlignment="center" />
+            <Label text="This is an about page" :textWrap="true" horizontalAlignment="center" verticalAlignment="center" />
         </GridLayout>
     </Page>
 </template>
@@ -80,7 +80,7 @@
     },
   };
 </script>
-    <%_ } _%>  
+    <%_ } _%>
   <%_ } _%>
 <%_ } else { _%>
   <%_ if (!usingTS) { _%>
