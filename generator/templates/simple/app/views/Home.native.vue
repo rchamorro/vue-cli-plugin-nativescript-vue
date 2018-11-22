@@ -24,7 +24,7 @@
     data() {
       return {
         navbarTitle: 'Home.native.vue',
-        msg: 'Mode=' + process.env.TNS_APP_MODE + ' and Platform=' + process.env.TNS_APP_PLATFORM,
+        msg: 'Mode=' + TNS_APP_MODE + ' and Platform=' + TNS_APP_PLATFORM,
       };
     },
   };
@@ -43,7 +43,7 @@
     data() {
       return {
         navbarTitle: 'Home.native.vue',
-        msg: 'Mode=' + process.env.TNS_APP_MODE + ' and Platform=' + process.env.TNS_APP_PLATFORM,
+        msg: 'Mode=' + TNS_APP_MODE + ' and Platform=' + TNS_APP_PLATFORM,
       };
     },
   };
