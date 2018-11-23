@@ -127,9 +127,7 @@ const nativeConfig = (api, projectOptions, env, platform, jsOrTs) => {
     // and in resolve.extensions from an object array const
     // or directly from a string
     config.resolve.extensions.clear();
-    //resolveExtensions(config, '.scss');
-    //resolveExtensions(config, '.css');
-
+  
     if (platform === 'android') {
       for (let ext of resolveExtensionsOptions.android) {
         resolveExtensions(config, ext);
@@ -295,51 +293,110 @@ const nativeConfig = (api, projectOptions, env, platform, jsOrTs) => {
 
     // // // }
 
-    // delete the css loader rule and rebuild it
-    config.module.rules.delete('css')
-    config.module
-      .rule('css')
-      .test(/\.css$/)
+    //console.log(config.module.rule('css').oneOf('normal').uses.get('css-loader').get('options'))
+
+    // remove most of the css rules and rebuild it for nativescript-vue
+    config.module.rules.get('css').oneOfs.delete('vue-modules')
+    config.module.rules.get('css').oneOfs.delete('normal-modules');
+    config.module.rules.get('css').oneOfs.delete('vue');
+    config.module.rules.get('css').oneOfs.get('normal').uses.delete('vue-style-loader')
+    config.module.rule('css').oneOf('normal')
+      .use('nativescript-dev-webpack/apply-css-loader')
+        .loader('nativescript-dev-webpack/apply-css-loader')
+        .before('css-loader')
+        .end()
       .use('nativescript-dev-webpack/style-hot-loader')
-      .loader('nativescript-dev-webpack/style-hot-loader')
-      .before('nativescript-dev-webpack/apply-css-loader')
+        .loader('nativescript-dev-webpack/style-hot-loader')
+        .before('nativescript-dev-webpack/apply-css-loader')
+        .end()
+      .use('css-loader')
+        .loader('css-loader')
+          .options(Object.assign({
+            minimize: false,
+            url: false,
+          }, config.module.rule('css').oneOf('normal').uses.get('css-loader').get('options')))
       .end()
+      .use('postcss-loader')
+      .loader('postcss-loader')
+        .options(Object.assign({
+          minimize: false,
+          url: false,
+        }, config.module.rule('css').oneOf('normal').uses.get('postcss-loader').get('options')))
+      .end()
+   
+    // remove most of the scss rules and rebuild it for nativescript-vue
+    config.module.rules.get('scss').oneOfs.delete('vue-modules')
+    config.module.rules.get('scss').oneOfs.delete('normal-modules');
+    config.module.rules.get('scss').oneOfs.delete('vue');
+    config.module.rules.get('scss').oneOfs.get('normal').uses.delete('vue-style-loader')
+
+    config.module.rule('scss').oneOf('normal')
       .use('nativescript-dev-webpack/apply-css-loader')
       .loader('nativescript-dev-webpack/apply-css-loader')
       .before('css-loader')
       .end()
-      .use('css-loader')
-      .loader('css-loader')
-      .options(Object.assign({
-        minimize: false,
-        url: false,
-      }, {}))
-      .end()
-
-
-    // delete the scss rule and rebuild it
-    config.module.rules.delete('scss')
-    config.module
-      .rule('scss')
-      .test(/\.scss$/)
       .use('nativescript-dev-webpack/style-hot-loader')
       .loader('nativescript-dev-webpack/style-hot-loader')
       .before('nativescript-dev-webpack/apply-css-loader')
       .end()
-      .use('nativescript-dev-webpack/apply-css-loader')
-      .loader('nativescript-dev-webpack/apply-css-loader')
-      .before('css-loader')
-      .end()
       .use('css-loader')
-      .loader('css-loader')
-      .options(Object.assign({
-        minimize: false,
-        url: false,
-      }, {}))
-      .before()
+        .loader('css-loader')
+          .options(Object.assign({
+            minimize: false,
+            url: false,
+          }, config.module.rule('scss').oneOf('normal').uses.get('css-loader').get('options')))
+      .end()
+      .use('postcss-loader')
+      .loader('postcss-loader')
+        .options(Object.assign({
+          minimize: false,
+          url: false,
+        }, config.module.rule('scss').oneOf('normal').uses.get('postcss-loader').get('options')))
       .end()
       .use('sass-loader')
       .loader('sass-loader')
+        .options(Object.assign({
+          minimize: false,
+          url: false,
+        }, config.module.rule('scss').oneOf('normal').uses.get('sass-loader').get('options')))
+      .end()
+      
+  
+    // remove most of the sass rules and rebuild it for nativescript-vue
+    config.module.rules.get('sass').oneOfs.delete('vue-modules')
+    config.module.rules.get('sass').oneOfs.delete('normal-modules');
+    config.module.rules.get('sass').oneOfs.delete('vue');
+    config.module.rules.get('sass').oneOfs.get('normal').uses.delete('vue-style-loader')
+    config.module.rule('sass').oneOf('normal')
+      .use('nativescript-dev-webpack/apply-css-loader')
+        .loader('nativescript-dev-webpack/apply-css-loader')
+        .before('css-loader')
+        .end()
+      .use('nativescript-dev-webpack/style-hot-loader')
+        .loader('nativescript-dev-webpack/style-hot-loader')
+        .before('nativescript-dev-webpack/apply-css-loader')
+        .end()
+      .use('css-loader')
+        .loader('css-loader')
+          .options(Object.assign({
+            minimize: false,
+            url: false,
+          }, config.module.rule('css').oneOf('normal').uses.get('css-loader').get('options')))
+      .end()
+      .use('postcss-loader')
+      .loader('postcss-loader')
+        .options(Object.assign({
+          minimize: false,
+          url: false,
+        }, config.module.rule('css').oneOf('normal').uses.get('postcss-loader').get('options')))
+      .end()
+      .use('sass-loader')
+      .loader('sass-loader')
+        .options(Object.assign({
+          minimize: false,
+          url: false,
+        }, config.module.rule('scss').oneOf('normal').uses.get('sass-loader').get('options')))
+      .end()
 
 
     // delete these rules that come standard with CLI 3
@@ -350,7 +407,6 @@ const nativeConfig = (api, projectOptions, env, platform, jsOrTs) => {
     config.module.rules.delete('fonts')
     config.module.rules.delete('pug')
     config.module.rules.delete('postcss')
-    config.module.rules.delete('sass')
     config.module.rules.delete('less')
     config.module.rules.delete('stylus')
     config.module.rules.delete('eslint')
@@ -365,7 +421,7 @@ const nativeConfig = (api, projectOptions, env, platform, jsOrTs) => {
     config.plugins.delete('pwa')
     config.plugins.delete('progress')
     config.plugins.delete('copy')
-      .end();
+    .end();
 
     // create new plugins
 
