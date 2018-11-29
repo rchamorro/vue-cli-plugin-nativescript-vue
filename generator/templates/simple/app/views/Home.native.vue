@@ -4,13 +4,12 @@
     <ActionBar :title="navbarTitle"/>
     <GridLayout rows="auto, auto">
         <!-- copy-webpack-plugin copies asset from src/assets to project output/build directory /assets -->
-        <Image src="~/assets/logo.png" row="0" class="m-20"/> 
+        <Image src="~/assets/logo.png" row="0" class="m-20"/>
         <HelloWorld :msg="msg" row="1" />
     </GridLayout>
     </Page>
 </template>
 <%_ } _%>
-
 <%_ if (rootOptions.router && !usingTS) { _%>
 <script>
   //aliased to src/components
@@ -50,6 +49,33 @@
 
 </script>
 <%_ } else { _%>
+<template>
+  <Page>
+    <ActionBar :title="navbarTitle"/>
+    <GridLayout rows="auto, auto">
+      <!-- copy-webpack-plugin copies asset from src/assets to project output/build directory /assets -->
+      <Image src="~/assets/logo.png" row="0" class="m-20"/>
+      <HelloWorld :msg="msg" row="1" />
+    </GridLayout>
+  </Page>
+</template>
+
+<script>
+    import HelloWorld from '~/components/HelloWorld';
+
+    export default {
+        name: 'home',
+        components: {
+            HelloWorld,
+        },
+        data() {
+            return {
+                navbarTitle: 'Home.native.vue',
+                msg: 'Mode=' + TNS_APP_MODE + ' and Platform=' + TNS_APP_PLATFORM,
+            };
+        },
+    };
+</script>
 <%_ } _%>
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <%_ if (rootOptions.cssPreprocessor !== 'stylus') { _%>

@@ -27,7 +27,7 @@ Example: com.company.app`
   {
     name: 'isNewProject',
     type: 'confirm',
-    message: 'Is this a brand new project? (Default: No)',
+    message: 'Is this a brand new project? (Default: Yes)',
     default: true
   },
   {
@@ -59,7 +59,7 @@ Example: com.company.app`
       value: true
       }
     ],
-    default: false,
+    default: true,
     when: (answers) => {
       // prompt will only show up if isNativeOrDual === 'dual'
       return answers.isNativeOrDual === 'dual';

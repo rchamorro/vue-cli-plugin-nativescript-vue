@@ -5,6 +5,14 @@
 </template>
   <%_ } else { _%>
 <template>
+  <Page>
+    <!-- <ActionBar :title="navbarTitle"/> -->
+    <GridLayout rows="auto, auto">
+      <!-- copy-webpack-plugin copies asset from src/assets to project output/build directory /assets -->
+      <Img src="~/assets/logo.png" row="0" class="m-20"/>
+      <HelloWorld :msg="msg" row="1" />
+    </GridLayout>
+  </Page>
 </template>
   <%_ } _%>
 <%_ } else { _%>
@@ -23,7 +31,7 @@
     <!-- <ActionBar :title="navbarTitle"/> -->
     <GridLayout rows="auto, auto">
         <!-- copy-webpack-plugin copies asset from src/assets to project output/build directory /assets -->
-        <Img src="~/assets/logo.png" row="0" class="m-20"/> 
+        <Img src="~/assets/logo.png" row="0" class="m-20"/>
         <HelloWorld :msg="msg" row="1" />
     </GridLayout>
     </Page>
@@ -37,6 +45,26 @@
 </script>
     <%_ } else { _%>
 <script>
+    import { Page, GridLayout, Img } from 'nativescript-vue-web';
+    import HelloWorld from 'components/HelloWorld.vue';
+
+    export default {
+        name: 'home',
+        components: {
+            HelloWorld,
+            Page,
+            // ActionBar,
+            GridLayout,
+            // eslint-disable-next-line
+            Img,
+        },
+        data() {
+            return {
+                navbarTitle: 'Home.vue',
+                msg: 'Mode=' + TNS_APP_MODE + ' and Platform=' + TNS_APP_PLATFORM,
+            };
+        },
+    };
 </script>
     <%_ } _%>
   <%_ } else { _%>
@@ -48,7 +76,7 @@
     <%# Is using NVW %>
 <script lang="ts">
 </script>
-    <%_ } _%>  
+    <%_ } _%>
   <%_ } _%>
 <%_ } else { _%>
   <%_ if (!usingTS) { _%>

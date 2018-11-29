@@ -21,7 +21,6 @@
   </Page>
 </template>
 <%_ } _%>
-
 <%_ if (!rootOptions.router && !usingTS) { _%>
 <script>
   import Home from '~/views/Home';
@@ -118,8 +117,6 @@
 </script>
 <%_ } else { _%>
 <%_ } _%>
-
-
 <%_ if (rootOptions.cssPreprocessor !== 'stylus') { _%>
 <style<%-
   rootOptions.cssPreprocessor

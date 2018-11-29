@@ -26,7 +26,7 @@ module.exports = async (api, options, rootOptions) => {
   // A template type of 'simple' project will have a template path that equals: ./templates/simple
   const templateTypePathModifer = options.templateType;
 
-  // Determine the path to App_Resources 
+  // Determine the path to App_Resources
   const nativeAppPathModifier = options.isNativeOrDual === true ? 'app/' : 'src/';
   const appResourcesPathModifier = nativeAppPathModifier + 'App_Resources';
   const tsExclusionArray = ['node_modules', 'dist', 'platforms', 'hooks', appResourcesPathModifier];
@@ -37,7 +37,7 @@ module.exports = async (api, options, rootOptions) => {
     throw Error('Invalid options chosen.  You cannot have a Native only project and use Nativescript-Vue-Web')
   }
 
-  // if Native only, then we make absolutely sure you will not be able to 
+  // if Native only, then we make absolutely sure you will not be able to
   // add NativeScript-Vue-Web into the project as it's not needed
   if (options.isNativeOrDual === 'native')
     options.isNVW = false;
@@ -102,8 +102,12 @@ module.exports = async (api, options, rootOptions) => {
     if (options.isNVW) {
       api.extendPackage({
         dependencies: {
-          'nativescript-vue-web': '^0.8.0',
+          'nativescript-vue-web': '^0.8.0'
         },
+        devDependencies: {
+          'node-sass': '4.9.4',
+          'sass-loader': '7.0.1'
+        }
       });
     }
 
@@ -217,7 +221,7 @@ module.exports = async (api, options, rootOptions) => {
     if(api.hasPlugin('typescript')) {
       tslintSetup(dirPathPrefix, api.resolve('tslint.json'), tsExclusionArray);
 
-      // we need to edit the tsconfig.json file in /app 
+      // we need to edit the tsconfig.json file in /app
       // for a Native only project to remove references to /src
       ////if (options.isNativeOrDual === 'native') {
         tsconfigSetup(options, dirPathPrefix + 'tsconfig.json', nativeAppPathModifier, tsExclusionArray);
@@ -392,7 +396,7 @@ const applyBabelConfig = module.exports.applyBabelConfig = async (api, filePath)
 }
 
 // write out files in the root of the project
-// this includes the environment files as well as a global types file for 
+// this includes the environment files as well as a global types file for
 // Typescript projects.  for new projects it will write files to the root of the project
 // and for existing projects it will write it to the ./ns-example directory
 const writeRootFiles = module.exports.writeRootFiles = async (api, options, filePathPrefix, nativeAppPathModifier) => {
@@ -543,14 +547,14 @@ const tslintSetup = module.exports.tslintSetup = async (dirPathPrefix, tslintPat
       tslintContent.linterOptions.exclude = new Array();
 
     if (tslintContent.exclude === undefined)
-      tslintContent.exclude = new Array();   
+      tslintContent.exclude = new Array();
 
     // add items into exclude arrays, but only if they don't already exist
     for(let item of tsExclusionArray) {
-      if (!tslintContent.linterOptions.exclude.includes(item + '/**')) 
+      if (!tslintContent.linterOptions.exclude.includes(item + '/**'))
         tslintContent.linterOptions.exclude.push(item + '/**');
 
-      if (!tslintContent.exclude.includes(item )) 
+      if (!tslintContent.exclude.includes(item ))
         tslintContent.exclude.push(item);
 
     }
@@ -604,11 +608,11 @@ const tsconfigSetup = module.exports.tsconfigSetup = async (options, tsconfigPat
 
     // create exclude array if necessary
     if (tsconfigContent.exclude === undefined)
-    tsconfigContent.exclude = new Array();   
+    tsconfigContent.exclude = new Array();
 
     // add items into exclude array, but only if they don't already exist
     for(let item of tsExclusionArray) {
-      if (!tsconfigContent.exclude.includes(item )) 
+      if (!tsconfigContent.exclude.includes(item ))
       tsconfigContent.exclude.push(item);
     }
 
@@ -641,7 +645,7 @@ const nativePkgJsonSetup = module.exports.nativePkgJsonSetup = async (nativePkgJ
     }
 
     nativePkgJsonContent.main = 'main.native';
- 
+
     fs.writeFileSync(nativePkgJsonPath, JSON.stringify(nativePkgJsonContent, null, 2), {
       encoding: 'utf8'
     }, (err) => {
@@ -704,7 +708,7 @@ const renderFilesIndividually = module.exports.renderFilesIndividually = async (
 // Good chunk of the following code comes from vue-cli/packages/@vue/cli/lib/GeneratorAPI.js
 // Specifically the render function.  We want to render the entire directory, but passing just
 // the directory to render doesn't give us the ability to tell where to put it as the cli's render
-// function lacks a simple directory in and directory out option.  So, we have to get the contents 
+// function lacks a simple directory in and directory out option.  So, we have to get the contents
 // of the passed in directory and then render each file individually to where we want it via
 // the render function's isObject(source) option that we use in our renderFilesIndividually function.
 const renderDirectory = module.exports.renderDirectory = async (api, options, jsOrTs, commonRenderOptions, srcPathPrefix, destPathPrefix) => {

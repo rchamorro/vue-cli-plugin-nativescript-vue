@@ -1,10 +1,15 @@
-
 <%_ if (!rootOptions.router) { _%>
   <%_ if (!usingNVW) { _%>
 <template>
 </template>
   <%_ } else { _%>
 <template>
+  <Page>
+    <!-- <ActionBar :title="navbarTitle"/> -->
+    <GridLayout>
+      <Label text="This is an about page" :textWrap="true" horizontalAlignment="center" verticalAlignment="center" />
+    </GridLayout>
+  </Page>
 </template>
   <%_ } _%>
 <%_ } else { _%>

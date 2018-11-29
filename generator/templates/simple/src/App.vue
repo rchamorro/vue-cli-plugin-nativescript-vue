@@ -69,12 +69,11 @@
       };
     },
   };
-
 </script>
     <%_ } else { _%>
     <%# Using NVW %>
 <script>
-  import { Page, GridLayout, Img } from 'nativescript-vue-web';
+  import { ActionBar, Page, GridLayout, Img } from 'nativescript-vue-web';
   import HelloWorld from '~/components/HelloWorld.vue';
 
   export default {
@@ -82,7 +81,7 @@
     components: {
       HelloWorld,
       Page,
-      // ActionBar,
+      ActionBar,
       GridLayout,
       // eslint-disable-next-line
       Img,
@@ -94,7 +93,6 @@
       };
     },
   };
-
 </script>
     <%_ } _%>
   <%_ } else { _%>
@@ -114,7 +112,6 @@
       };
     },
   };
-
 </script>
     <%_ } else { _%>
     <%# Is using NVW %>
@@ -140,9 +137,7 @@
   <%_ if (!usingTS) { _%>
     <%_ if (!usingNVW) { _%>
 <script>
-
   export default {
-
     data() {
       return {
         navbarTitle: 'App.vue not typescript',
@@ -156,7 +151,6 @@
   import { Page, ActionBar, GridLayout, Button } from 'nativescript-vue-web';
 
   export default {
-
     components: {
       Page,
       ActionBar,
@@ -184,16 +178,13 @@
     <%# Using TS %>
     <%_ if (!usingNVW) { _%>
 <script lang="ts">
-
   export default {
-
     data() {
       return {
         navbarTitle: 'App.vue with TS',
       };
     },
   };
-
 </script>
     <%_ } else { _%>
     <%# Is using NVW %>
@@ -201,7 +192,6 @@
   import { Page, ActionBar, GridLayout, Button } from 'nativescript-vue-web';
 
   export default {
-
     components: {
       Page,
       ActionBar,
@@ -227,7 +217,6 @@
     <%_ } _%>
   <%_ } _%>
 <%_ } _%>
-
 <%_ if (rootOptions.cssPreprocessor !== 'stylus') { _%>
 <style<%-
   rootOptions.cssPreprocessor

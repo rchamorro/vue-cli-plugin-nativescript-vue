@@ -8,7 +8,6 @@
     </Page>
 </template>
 <%_ } _%>
-
 <%_ if (rootOptions.router && !usingTS) { _%>
 <script>
   export default {
@@ -34,5 +33,24 @@
 
 </script>
 <%_ } else { _%>
+<template>
+    <Page>
+        <ActionBar :title="navbarTitle"/>
+        <GridLayout>
+            <Label text="This is an about page" textWrap="true" horizontalAlignment="center" verticalAlignment="center" />
+        </GridLayout>
+    </Page>
+</template>
+<script>
+  export default {
+
+    data() {
+      return {
+        navbarTitle: 'About.android.vue',
+      };
+    },
+  };
+
+</script>
 <%_ } _%>
 
