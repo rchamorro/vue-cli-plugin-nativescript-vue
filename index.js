@@ -460,7 +460,8 @@ const nativeConfig = (api, projectOptions, env, jsOrTs, projectRoot, isNVW, plat
         Object.assign(
           {
             minimize: false,
-            url: false
+            url: false,
+            data: '$PLATFORM: ' + platform + ';'
           },
           config.module
             .rule('scss')
@@ -476,7 +477,8 @@ const nativeConfig = (api, projectOptions, env, jsOrTs, projectRoot, isNVW, plat
         Object.assign(
           {
             minimize: false,
-            url: false
+            url: false,
+            data: '$PLATFORM: ' + platform + ';'
           },
           config.module
             .rule('scss')
