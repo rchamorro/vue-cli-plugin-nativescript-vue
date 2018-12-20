@@ -460,7 +460,8 @@ const nativeConfig = (api, projectOptions, nodeEnv, jsOrTs, projectRoot, appPath
 				Object.assign(
 					{
 						minimize: false,
-						url: false
+						url: false,
+						data: '$PLATFORM: ' + platform + ';'
 					},
 					config.module
 						.rule('scss')
@@ -520,7 +521,8 @@ const nativeConfig = (api, projectOptions, nodeEnv, jsOrTs, projectRoot, appPath
 				Object.assign(
 					{
 						minimize: false,
-						url: false
+						url: false,
+						data: '$PLATFORM: ' + platform + ';'
 					},
 					config.module
 						.rule('sass')
