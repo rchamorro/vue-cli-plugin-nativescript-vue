@@ -79,9 +79,9 @@ module.exports = (api, projectOptions) => {
   const platform = env && ((env.android && 'android') || (env.ios && 'ios') || (env.web && 'web'));
   //console.log('platform - ', platform);
 
-  if (!platform) {
-    throw new Error('You need to provide a target platform!');
-  }
+  // if (!platform) {
+  //   throw new Error('You need to provide a target platform!');
+  // }
 
   const projectRoot = api.service.context;
   //console.log('projectRoot - ', projectRoot);
@@ -91,7 +91,7 @@ module.exports = (api, projectOptions) => {
   const appMode = platform === 'android' ? 'native' : platform === 'ios' ? 'native' : 'web';
   //console.log('appMode - ', appMode);
 
-  process.env.VUE_APP_MODE = appMode;
+  //process.env.VUE_APP_MODE = appMode;
 
   projectOptions.outputDir = join(projectRoot, appMode === 'web' ? 'dist' : nsWebpack.getAppPath(platform, projectRoot));
   //console.log('dist - ', projectOptions.outputDir);
@@ -583,15 +583,15 @@ const nativeConfig = (api, projectOptions, env, jsOrTs, projectRoot, isNVW, plat
     // create new plugins
 
     // Define useful constants like TNS_WEBPACK
+    // Merge DefinePlugin options that come in native from CLI 3
     config
       .plugin('define')
       .use(DefinePlugin, [
-        {
-          'global.TNS_WEBPACK': 'true',
+        Object.assign(config.plugin('define').get('args')[0], {
           TNS_ENV: JSON.stringify(mode),
           TNS_APP_PLATFORM: JSON.stringify(process.env.VUE_APP_PLATFORM),
           TNS_APP_MODE: JSON.stringify(process.env.VUE_APP_MODE)
-        }
+        })
       ])
       .end();
 
@@ -833,14 +833,15 @@ const webConfig = (api, projectOptions, env, jsOrTs, projectRoot, isNVW) => {
       .end();
 
     // Define useful constants like TNS_WEBPACK
+    // Merge DefinePlugin options that come in native from CLI 3
     config
       .plugin('define')
       .use(DefinePlugin, [
-        {
+        Object.assign(config.plugin('define').get('args')[0], {
           TNS_ENV: JSON.stringify(mode),
           TNS_APP_PLATFORM: JSON.stringify(process.env.VUE_APP_PLATFORM),
           TNS_APP_MODE: JSON.stringify(process.env.VUE_APP_MODE)
-        }
+        })
       ])
       .end();
 
